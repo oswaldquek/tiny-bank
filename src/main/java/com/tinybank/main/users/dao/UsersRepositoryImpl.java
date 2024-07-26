@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class UsersRepositoryImpl implements UsersRepository {
 
-    private static Map<String, UserEntity> users = new HashMap<>();
+    private static final Map<String, UserEntity> users = new HashMap<>();
 
     public void add(UserEntity userEntity) {
         users.put(userEntity.getId(), userEntity);
