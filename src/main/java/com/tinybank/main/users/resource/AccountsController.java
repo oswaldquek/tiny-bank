@@ -44,6 +44,9 @@ public class AccountsController {
 
     @GetMapping(path = "/v1/user/{userId}/account", produces = "application/json")
     public ResponseEntity getAccount(@PathVariable("userId") String userId) {
+        if (usersService.getUser(userId).isEmpty()) {
+            throw new ResponseStatusException(NOT_FOUND, format("User with id %s not found", userId));
+        }
         AccountInformationResponse accountInformation = accountsService.getAccountInformation(userId);
         return ResponseEntity.ok().body(accountInformation);
     }
