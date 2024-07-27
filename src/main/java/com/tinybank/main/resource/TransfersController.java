@@ -1,9 +1,8 @@
 package com.tinybank.main.resource;
 
 import com.tinybank.main.model.TransactionRequest;
+import com.tinybank.main.model.UserEntity;
 import com.tinybank.main.service.TransferService;
-import com.tinybank.main.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,25 +16,19 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class TransfersController {
 
     private final TransferService transferService;
-    private final UsersService usersService;
 
-    @Autowired
-    public TransfersController(TransferService transferService, UsersService usersService) {
+    public TransfersController(TransferService transferService) {
         this.transferService = transferService;
-        this.usersService = usersService;
     }
 
     @PostMapping(path = "/v1/transfer/{fromUserId}/{toUserId}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> transfer(@PathVariable("fromUserId") String fromUserId,
-                                           @PathVariable("toUserId") String toUserId,
+    public ResponseEntity<String> transfer(@PathVariable("fromUserId") UserEntity fromUser,
+                                           @PathVariable("toUserId") UserEntity toUser,
                                            @RequestBody TransactionRequest transactionRequest) {
-        if (usersService.getUser(fromUserId).isEmpty() || usersService.getUser(toUserId).isEmpty()) {
-            throw new ResponseStatusException(BAD_REQUEST, "User not found");
-        }
-        if (fromUserId.equalsIgnoreCase(toUserId)) {
+        if (fromUser.equals(toUser)) {
             throw new ResponseStatusException(BAD_REQUEST, "Cannot transfer money to self.");
         }
-        transferService.makeTransfer(fromUserId, toUserId, transactionRequest);
+        transferService.makeTransfer(fromUser.getId(), toUser.getId(), transactionRequest);
         return ResponseEntity.ok().build();
     }
 }

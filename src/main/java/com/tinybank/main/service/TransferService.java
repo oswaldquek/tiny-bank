@@ -1,7 +1,6 @@
 package com.tinybank.main.service;
 
 import com.tinybank.main.model.TransactionRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,7 +12,6 @@ public class TransferService {
 
     private final AccountsService accountsService;
 
-    @Autowired
     public TransferService(AccountsService accountsService) {
         this.accountsService = accountsService;
     }

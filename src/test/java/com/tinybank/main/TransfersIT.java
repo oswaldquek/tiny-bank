@@ -128,9 +128,9 @@ public class TransfersIT {
 
     @Test
     void badRequestIfTransferringMoneyToNonExistentPerson() throws Exception {
-        mvc.perform(post("/v1/transfer/nonExistentPerson1/nonExistentPerson2")
+        mvc.perform(post("/v1/transfer/nonExistentPerson1/" + userId2)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(Map.of("amount", 500))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 }

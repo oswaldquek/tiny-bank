@@ -4,7 +4,6 @@ import com.tinybank.main.dao.AccountsRepository;
 import com.tinybank.main.model.AccountInformationResponse;
 import com.tinybank.main.model.TransactionEventEntity;
 import com.tinybank.main.model.TransactionRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public class AccountsService {
 
     private final AccountsRepository accountsRepository;
 
-    @Autowired
     public AccountsService(AccountsRepository accountsRepository) {
         this.accountsRepository = accountsRepository;
     }

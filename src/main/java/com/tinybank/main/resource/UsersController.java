@@ -3,7 +3,6 @@ package com.tinybank.main.resource;
 import com.tinybank.main.model.CreateUserRequest;
 import com.tinybank.main.model.UserResponse;
 import com.tinybank.main.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,6 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }

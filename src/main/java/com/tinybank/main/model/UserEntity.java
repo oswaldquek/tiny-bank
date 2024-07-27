@@ -1,5 +1,8 @@
 package com.tinybank.main.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.Date;
 
 public class UserEntity {
@@ -51,5 +54,21 @@ public class UserEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserEntity that = (UserEntity) o;
+
+        return new EqualsBuilder().append(id, that.id).append(status, that.status).append(firstName, that.firstName).append(lastName, that.lastName).append(dateOfBirth, that.dateOfBirth).append(address, that.address).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(id).append(status).append(firstName).append(lastName).append(dateOfBirth).append(address).toHashCode();
     }
 }
