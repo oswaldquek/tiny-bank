@@ -13,9 +13,13 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Map;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -128,5 +132,37 @@ public class AccountActionsIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", is(userId)))
                 .andExpect(jsonPath("$.balance", is(1000)));
+    }
+
+    @Test
+    void viewTransactionHistory() throws Exception {
+        mvc.perform(post("/v1/user/" + userId + "/account/add-transaction")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("amount", 1000))))
+                .andExpect(status().isOk());
+
+        mvc.perform(post("/v1/user/" + userId + "/account/add-transaction")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("amount", 2000))))
+                .andExpect(status().isOk());
+
+        mvc.perform(post("/v1/user/" + userId + "/account/add-transaction")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("amount", -300))))
+                .andExpect(status().isOk());
+
+        mvc.perform(get("/v1/user/" + userId + "/transaction-history")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andDo(print())
+                .andExpect(jsonPath("$.links.next_page", nullValue()))
+                .andExpect(jsonPath("$.links.prev_page", nullValue()))
+                .andExpect(jsonPath("$.links.self", is("http://localhost/v1/user/" + userId + "/transaction-history?page=1&size=10")))
+                .andExpect(jsonPath("$.results", hasSize(3)))
+                .andExpect(jsonPath("$.results[0].amount", is(1000)))
+                .andExpect(jsonPath("$.results[0].dateTime", notNullValue()))
+                .andExpect(jsonPath("$.results[1].amount", is(2000)))
+                .andExpect(jsonPath("$.results[1].dateTime", notNullValue()))
+                .andExpect(jsonPath("$.results[2].amount", is(-300)))
+                .andExpect(jsonPath("$.results[2].dateTime", notNullValue()));
     }
 }

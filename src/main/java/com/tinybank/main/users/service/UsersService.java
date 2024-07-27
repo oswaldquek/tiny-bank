@@ -2,10 +2,9 @@ package com.tinybank.main.users.service;
 
 import com.tinybank.main.users.dao.UsersRepository;
 import com.tinybank.main.users.model.CreateUserRequest;
-import com.tinybank.main.users.model.TransactionRequest;
-import com.tinybank.main.users.model.UserResponse;
 import com.tinybank.main.users.model.Status;
 import com.tinybank.main.users.model.UserEntity;
+import com.tinybank.main.users.model.UserResponse;
 import com.tinybank.main.utils.RandomIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,18 +19,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private final AccountsService accountsService;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository, AccountsService accountsService) {
+    public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
-        this.accountsService = accountsService;
     }
 
     public UserResponse createUser(CreateUserRequest createUserRequest) {
         UserEntity userEntity = UserEntity.newUser(createUserRequest, RandomIdGenerator.newUserId(), Status.active);
         usersRepository.add(userEntity);
-        accountsService.addTransaction(userEntity.getId(), new TransactionRequest(0L));
         return UserResponse.from(userEntity);
     }
 

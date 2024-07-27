@@ -20,6 +20,6 @@ public class AccountsRepositoryImpl implements AccountsRepository {
 
     @Override
     public List<TransactionEventEntity> getTransactionEvents(String userId) {
-        return transactions.get(userId);
+        return transactions.getOrDefault(userId, new LinkedList<>());
     }
 }

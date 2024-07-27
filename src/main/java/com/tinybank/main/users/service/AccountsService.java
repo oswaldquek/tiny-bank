@@ -7,6 +7,8 @@ import com.tinybank.main.users.model.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AccountsService {
 
@@ -26,5 +28,9 @@ public class AccountsService {
                 .stream().map(TransactionEventEntity::amount)
                 .reduce(0L, Long::sum);
         return new AccountInformationResponse(userId, balance);
+    }
+
+    public List<TransactionEventEntity> getTransactionHistory(String userId) {
+        return accountsRepository.getTransactionEvents(userId);
     }
 }
