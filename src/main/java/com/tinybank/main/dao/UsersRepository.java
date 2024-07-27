@@ -1,6 +1,6 @@
-package com.tinybank.main.users.dao;
+package com.tinybank.main.dao;
 
-import com.tinybank.main.users.model.UserEntity;
+import com.tinybank.main.model.UserEntity;
 
 import java.util.Optional;
 

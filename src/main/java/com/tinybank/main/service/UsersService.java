@@ -1,10 +1,10 @@
-package com.tinybank.main.users.service;
+package com.tinybank.main.service;
 
-import com.tinybank.main.users.dao.UsersRepository;
-import com.tinybank.main.users.model.CreateUserRequest;
-import com.tinybank.main.users.model.Status;
-import com.tinybank.main.users.model.UserEntity;
-import com.tinybank.main.users.model.UserResponse;
+import com.tinybank.main.dao.UsersRepository;
+import com.tinybank.main.model.CreateUserRequest;
+import com.tinybank.main.model.Status;
+import com.tinybank.main.model.UserEntity;
+import com.tinybank.main.model.UserResponse;
 import com.tinybank.main.utils.RandomIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

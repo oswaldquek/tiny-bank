@@ -1,4 +1,4 @@
-package com.tinybank.main.users.model;
+package com.tinybank.main.model;
 
 import java.time.LocalDateTime;
 

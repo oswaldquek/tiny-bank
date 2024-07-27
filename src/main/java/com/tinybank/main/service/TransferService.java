@@ -1,6 +1,6 @@
-package com.tinybank.main.users.service;
+package com.tinybank.main.service;
 
-import com.tinybank.main.users.model.TransactionRequest;
+import com.tinybank.main.model.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;

@@ -1,9 +1,9 @@
-package com.tinybank.main.users.service;
+package com.tinybank.main.service;
 
-import com.tinybank.main.users.dao.AccountsRepository;
-import com.tinybank.main.users.model.AccountInformationResponse;
-import com.tinybank.main.users.model.TransactionEventEntity;
-import com.tinybank.main.users.model.TransactionRequest;
+import com.tinybank.main.dao.AccountsRepository;
+import com.tinybank.main.model.AccountInformationResponse;
+import com.tinybank.main.model.TransactionEventEntity;
+import com.tinybank.main.model.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
-package com.tinybank.main.users.resource;
+package com.tinybank.main.resource;
 
-import com.tinybank.main.users.model.TransactionRequest;
-import com.tinybank.main.users.service.TransferService;
-import com.tinybank.main.users.service.UsersService;
+import com.tinybank.main.model.TransactionRequest;
+import com.tinybank.main.service.TransferService;
+import com.tinybank.main.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

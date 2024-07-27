@@ -1,11 +1,9 @@
-package com.tinybank.main.users.dao;
+package com.tinybank.main.dao;
 
-import com.tinybank.main.users.model.UserEntity;
+import com.tinybank.main.model.UserEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

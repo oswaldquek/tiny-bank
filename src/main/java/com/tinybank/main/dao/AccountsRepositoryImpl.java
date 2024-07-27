@@ -1,6 +1,6 @@
-package com.tinybank.main.users.dao;
+package com.tinybank.main.dao;
 
-import com.tinybank.main.users.model.TransactionEventEntity;
+import com.tinybank.main.model.TransactionEventEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

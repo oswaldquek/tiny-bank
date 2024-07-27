@@ -1,12 +1,11 @@
-package com.tinybank.main.users.resource;
+package com.tinybank.main.resource;
 
-import com.tinybank.main.users.model.AccountInformationResponse;
-import com.tinybank.main.users.model.Links;
-import com.tinybank.main.users.model.TransactionEventEntity;
-import com.tinybank.main.users.model.TransactionHistoryResponse;
-import com.tinybank.main.users.model.TransactionRequest;
-import com.tinybank.main.users.service.AccountsService;
-import com.tinybank.main.users.service.UsersService;
+import com.tinybank.main.model.AccountInformationResponse;
+import com.tinybank.main.model.Links;
+import com.tinybank.main.model.TransactionHistoryResponse;
+import com.tinybank.main.model.TransactionRequest;
+import com.tinybank.main.service.AccountsService;
+import com.tinybank.main.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
