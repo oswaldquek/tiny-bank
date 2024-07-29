@@ -28,6 +28,9 @@ public class TransfersController {
         if (fromUser.equals(toUser)) {
             throw new ResponseStatusException(BAD_REQUEST, "Cannot transfer money to self.");
         }
+        if (transactionRequest.amount() <= 0) {
+            throw new ResponseStatusException(BAD_REQUEST, "Can only transfer an amount greater than zero.");
+        }
         transferService.makeTransfer(fromUser.getId(), toUser.getId(), transactionRequest);
         return ResponseEntity.ok().build();
     }

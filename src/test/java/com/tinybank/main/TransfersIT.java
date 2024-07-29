@@ -14,8 +14,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -109,6 +111,22 @@ public class TransfersIT {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(Map.of("amount", 1500))))
                 .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void badRequestWhenTransferringNegativeAmount() throws Exception {
+        mvc.perform(post("/v1/user/" + userId1 + "/account/add-transaction")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("amount", 1000))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(userId1)))
+                .andExpect(jsonPath("$.balance", is(1000)));
+
+        mvc.perform(post("/v1/transfer/" + userId1 + "/" + userId2)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("amount", -1000))))
+                .andExpect(status().isBadRequest())
+                .andExpect(status().reason("Can only transfer an amount greater than zero."));
     }
 
     @Test
